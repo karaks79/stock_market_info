@@ -1,0 +1,297 @@
+{
+    "actor": {
+        "type": "hub",
+        "relations": [
+            {
+                "table": "film_actor",
+                "cardinality": "one-to-many",
+                "join_condition": "actor.actor_id = film_actor.actor_id"
+            }
+        ]
+    },
+    "address": {
+        "type": "hub",
+        "relations": [
+            {
+                "table": "customer",
+                "cardinality": "one-to-many",
+                "join_condition": "address.address_id = customer.address_id"
+            },
+            {
+                "table": "staff",
+                "cardinality": "one-to-many",
+                "join_condition": "address.address_id = staff.address_id"
+            },
+            {
+                "table": "store",
+                "cardinality": "one-to-many",
+                "join_condition": "address.address_id = store.address_id"
+            },
+            {
+                "table": "city",
+                "cardinality": "many-to-one",
+                "join_condition": "address.city_id = city.city_id"
+            }
+        ]
+    },
+    "category": {
+        "type": "hub",
+        "relations": [
+            {
+                "table": "film_category",
+                "cardinality": "one-to-many",
+                "join_condition": "category.category_id = film_category.category_id"
+            }
+        ]
+    },
+    "city": {
+        "type": "hub",
+        "relations": [
+            {
+                "table": "address",
+                "cardinality": "one-to-many",
+                "join_condition": "city.city_id = address.city_id"
+            },
+            {
+                "table": "country",
+                "cardinality": "many-to-one",
+                "join_condition": "city.country_id = country.country_id"
+            }
+        ]
+    },
+    "country": {
+        "type": "hub",
+        "relations": [
+            {
+                "table": "city",
+                "cardinality": "one-to-many",
+                "join_condition": "country.country_id = city.country_id"
+            }
+        ]
+    },
+    "customer": {
+        "type": "hub",
+        "relations": [
+            {
+                "table": "payment",
+                "cardinality": "one-to-many",
+                "join_condition": "customer.customer_id = payment.customer_id"
+            },
+            {
+                "table": "rental",
+                "cardinality": "one-to-many",
+                "join_condition": "customer.customer_id = rental.customer_id"
+            },
+            {
+                "table": "store",
+                "cardinality": "many-to-one",
+                "join_condition": "customer.store_id = store.store_id"
+            },
+            {
+                "table": "address",
+                "cardinality": "many-to-one",
+                "join_condition": "customer.address_id = address.address_id"
+            }
+        ]
+    },
+    "film": {
+        "type": "hub",
+        "relations": [
+            {
+                "table": "film_actor",
+                "cardinality": "one-to-many",
+                "join_condition": "film.film_id = film_actor.film_id"
+            },
+            {
+                "table": "film_category",
+                "cardinality": "one-to-many",
+                "join_condition": "film.film_id = film_category.film_id"
+            },
+            {
+                "table": "inventory",
+                "cardinality": "one-to-many",
+                "join_condition": "film.film_id = inventory.film_id"
+            },
+            {
+                "table": "language",
+                "cardinality": "many-to-one",
+                "join_condition": "film.language_id = language.language_id"
+            },
+            {
+                "table": "language",
+                "cardinality": "many-to-one",
+                "join_condition": "film.original_language_id = language.language_id"
+            }
+        ]
+    },
+    "film_actor": {
+        "type": "link",
+        "relations": [
+            {
+                "table": "actor",
+                "cardinality": "many-to-one",
+                "join_condition": "film_actor.actor_id = actor.actor_id"
+            },
+            {
+                "table": "film",
+                "cardinality": "many-to-one",
+                "join_condition": "film_actor.film_id = film.film_id"
+            }
+        ]
+    },
+    "film_category": {
+        "type": "link",
+        "relations": [
+            {
+                "table": "category",
+                "cardinality": "many-to-one",
+                "join_condition": "film_category.category_id = category.category_id"
+            },
+            {
+                "table": "film",
+                "cardinality": "many-to-one",
+                "join_condition": "film_category.film_id = film.film_id"
+            }
+        ]
+    },
+    "inventory": {
+        "type": "hub",
+        "relations": [
+            {
+                "table": "rental",
+                "cardinality": "one-to-many",
+                "join_condition": "inventory.inventory_id = rental.inventory_id"
+            },
+            {
+                "table": "film",
+                "cardinality": "many-to-one",
+                "join_condition": "inventory.film_id = film.film_id"
+            },
+            {
+                "table": "store",
+                "cardinality": "many-to-one",
+                "join_condition": "inventory.store_id = store.store_id"
+            }   
+        ]
+    },
+    "language": {
+        "type": "hub",
+        "relations": [
+            {
+                "table": "film",
+                "cardinality": "one-to-many",
+                "join_condition": "language.language_id = film.language_id"
+            },
+            {
+                "table": "film",
+                "cardinality": "one-to-many",
+                "join_condition": "language.language_id = film.original_language_id"
+            }
+        ]
+    },
+    "payment": {
+        "type": "hub",
+        "relations": [
+            {
+                "table": "customer",
+                "cardinality": "many-to-one",
+                "join_condition": "payment.customer_id = customer.customer_id"
+            },
+            {
+                "table": "staff",
+                "cardinality": "many-to-one",
+                "join_condition": "payment.staff_id = staff.staff_id"
+            },
+            {
+                "table": "rental",
+                "cardinality": "many-to-one",
+                "join_condition": "payment.rental_id = rental.rental_id"
+            }
+        ]
+    },
+    "rental": {
+        "type": "hub",
+        "relations": [
+            {
+                "table": "payment",
+                "cardinality": "one-to-many",
+                "join_condition": "rental.rental_id = payment.rental_id"
+            },
+            {
+                "table": "inventory",
+                "cardinality": "many-to-one",
+                "join_condition": "rental.inventory_id = inventory.inventory_id"
+            },
+            {
+                "table": "customer",
+                "cardinality": "many-to-one",
+                "join_condition": "rental.customer_id = customer.customer_id"
+            },
+            {
+                "table": "staff",
+                "cardinality": "many-to-one",
+                "join_condition": "rental.staff_id = staff.staff_id"
+            }
+        ]
+    },
+    "staff": {
+        "type": "hub",
+        "relations": [
+            {
+                "table": "payment",
+                "cardinality": "one-to-many",
+                "join_condition": "staff.staff_id = payment.staff_id"
+            },
+            {
+                "table": "rental",
+                "cardinality": "one-to-many",
+                "join_condition": "staff.staff_id = rental.staff_id"
+            },
+            {
+                "table": "store",
+                "cardinality": "one-to-many",
+                "join_condition": "staff.staff_id = store.manager_staff_id"
+            },
+            {
+                "table": "address",
+                "cardinality": "many-to-one",
+                "join_condition": "staff.address_id = address.address_id"
+            },
+            {
+                "table": "store",
+                "cardinality": "many-to-one",
+                "join_condition": "staff.store_id = store.store_id"
+            }
+        ]
+    },
+    "store": {
+        "type": "hub",
+        "relations": [
+            {
+                "table": "customer",
+                "cardinality": "one-to-many",
+                "join_condition": "store.store_id = customer.store_id"
+            },
+            {
+                "table": "inventory",
+                "cardinality": "one-to-many",
+                "join_condition": "store.store_id = inventory.store_id"
+            },
+            {
+                "table": "staff",
+                "cardinality": "one-to-many",
+                "join_condition": "store.store_id = staff.store_id"
+            },
+            {
+                "table": "staff",
+                "cardinality": "many-to-one",
+                "join_condition": "store.manager_staff_id = staff.staff_id"
+            },
+            {
+                "table": "address",
+                "cardinality": "many-to-one",
+                "join_condition": "store.address_id = address.address_id"
+            }
+        ]
+    }
+}
