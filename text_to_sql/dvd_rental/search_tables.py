@@ -8,7 +8,7 @@ TOP_N = 20
 
 
 def read_from_pickle(pickle_file_name: str) -> object:
-    """Читать (десериаоизовать) pickle-файл в Python-объект"""
+    """Читать (десериализовать) pickle-файл в Python-объект"""
     with open(pickle_file_name, "rb") as f:
         return pickle.load(f)
     

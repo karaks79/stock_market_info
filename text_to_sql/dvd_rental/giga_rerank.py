@@ -1,6 +1,8 @@
 import json
 import time
+import os
 from pprint import pprint
+from dotenv import load_dotenv
 
 t0 = time.time()
 print(f"{t0=}: Перед import GigaChat")
@@ -112,7 +114,10 @@ def giga_answer(chat, system: str, human: str):
 #     )
 
 
-if __name__ == "__main__":
+def main():
+    load_dotenv()
+    sber_studio_api_key = os.getenv("SBER_STUDIO_API_KEY")
+
     query_number = "9"
 
     tables = read_tables_from_json("metadata/tables_02.json")
@@ -127,7 +132,7 @@ if __name__ == "__main__":
     t2 = time.time()
     print(f"{t2=}: Перед запросом к GigaChat")
     chat = GigaChat(
-        credentials = "MDE5ZGUzZDgtZDM1Ny03Yjg5LTg0ZGUtZDRhYmZhMjNlYWYwOjg3YzAxMDVlLTgyNTUtNGZlZC1iMTE3LThiZDQyYjQzYzgwMQ==",
+        credentials=sber_studio_api_key,
         # Для работы с API нужны сертификаты НУЦ МинЦифры
         # Если нужно, проверуку сертификатов можно отключить с помощью параметра verify_ssl_certs
         verify_ssl_certs=False,
@@ -159,3 +164,9 @@ if __name__ == "__main__":
     print(f"Время import GigaChat: {t1 - t0:.2f} секунд")
     print(f"Время запроса к GigaChat: {t3 - t2:.2f} секунд")
     print(f"Время ИТОГО: {t3 - t0:.2f} секунд")
+
+
+if __name__ == "__main__":
+    main()
+
+    

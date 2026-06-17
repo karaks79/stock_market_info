@@ -3,10 +3,16 @@ from langchain_core.messages import SystemMessage, HumanMessage
 from sentence_transformers import SentenceTransformer  # 2.7 GB - вес библиотеки (на D:\wsl)!!!
 import psycopg
 import json
+import os
 from pprint import pprint
+from dotenv import load_dotenv
+
+load_dotenv()   # Загружает настройки из .env в переменные окружения
+sber_studio_api_key = os.getenv("SBER_STUDIO_API_KEY")
+
 
 chat = GigaChat(
-    credentials = "MDE5ZGUzZDgtZDM1Ny03Yjg5LTg0ZGUtZDRhYmZhMjNlYWYwOjg3YzAxMDVlLTgyNTUtNGZlZC1iMTE3LThiZDQyYjQzYzgwMQ==",
+    credentials=sber_studio_api_key,    # API Key
     # Для работы с API нужны сертификаты НУЦ МинЦифры
     # Если нужно, проверуку сертификатов можно отключить с помощью параметра verify_ssl_certs
     verify_ssl_certs=False,
